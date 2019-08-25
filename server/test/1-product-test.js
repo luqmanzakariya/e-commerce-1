@@ -12,6 +12,7 @@ after(function(done){
 })
 
 let token = ''
+let ProductId = ''
 
 //========== Get Token ==========
 describe(`get token`, function(){
@@ -66,23 +67,74 @@ describe(`product test`, function(){
   })
 
   //========== Read ==========
-  describe("POST /users/login", function () {
-    it("Success login with status 200", function (done) {
-      let user = {
-        email: "qwer@mail.com",
-        password: "qwerqwer"
-      };
+  describe("GET /products/findAll", function () {
+    it("Success get products data with status 200", function (done) {
       chai
         .request(app)
-        .post("/users/login")
-        .send(user)
+        .get("/products/findAll")
+        .set('token', token)
         .end(function (err, res) {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("object")
-          expect(res.body).to.have.keys("_id","email","name","isAdmin", "token")
+          expect(res.body).to.be.an("array")
           done();
         })
     })
   })
+
+  describe("GET /products/product/:id", function () {
+    it("Success get products data by id with status 200", function (done) {
+      chai
+        .request(app)
+        .get(`/products/products/product/${ProductId}`)
+        .set('token', token)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object")
+          done();
+        })
+    })
+  })
+
+  //========== Update ==========
+  describe("POST /productts/:id", function () {
+    it("Success update with status 200", function (done) {
+      let product = {
+        name: "sepatu",
+        description: "running shoes",
+        price: 5000,
+        stock: 100,
+      }
+      chai
+        .request(app)
+        .post("/users/login")
+        .send(product)
+        .set('token', token)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object")
+          done();
+        })
+    })
+  })
+
+  //========== Delete ==========
+  describe("POST /users//:id", function () {
+    it("Success login with status 200", function (done) {
+      chai
+        .request(app)
+        .post("/users/login")
+        .set('token', token)
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object")
+          done();
+        })
+    })
+  })
+
+
 })

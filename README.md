@@ -33,7 +33,7 @@ example :
 | Route  | HTTP | Headers(s) | Body | Sucess Response | Error Response  | Description         |
 | ------ | ---- | ---------- | - |-| ---- | ----- | ------------------- |
 | `/users/register` | POST | `none` | `name (string, required), email (string, required), password (string, required)` | (201) json(_id, name, email, isAdmin, password (encrypted), createdAt, updatedAt, __v) | (500) validation error  | Sign up with new user info |
-| `/users/login` | POST | `none` | `email (string, required), password (string, required)` |  (200) json(              token, _id, name, email, isAdmin | (500) validation error, (404) wrong email/password  | Sign in and get an access token based on credentials |
+| `/users/login` | POST | `none` | `email (string, required), password (string, required)` |  (200) json(              token, _id, name, email, isAdmin | (500) validation error, (401) wrong email/password  | Sign in and get an access token based on credentials |
 
 
 ## List of Article routes:
@@ -47,9 +47,9 @@ example :
 | ----- | ---- | ---------- | ---- | ----------------| -------------- | ---|
 | `/findAll` | GET | `none` | `none` | (200) [ json(_id, name, description, fileUrl, price, stock, createdAt, updatedAt, __v)] | (500) internal server error | Get all products |
 | `/product/:id` | GET | `none` | `none` | (200) json( json(_id, name, description, fileUrl, price, stock, createdAt, updatedAt, __v) )| (500) internal server error | Get one product |
-| `/create` | POST | `token` | `name`, `description`, `price`, `stock`, `fileUrl` | (200) json( json(_id, name, description, fileUrl, price, stock, createdAt, updatedAt, __v) )| (500) internal server error | Create product |
-| `/:id` | PATCH | `token` | `name`, `description`, `price`, `stock`, `fileUrl` | (200) json(n,nModified,ok) )| (500) internal server error | Update product |
-| `/:id` | DELETE | `token` | `none` | (200) json(ok,deletedCount,n)| (500) internal server error | Delete a product |
+| `/create` | POST | `token` | `name`, `description`, `price`, `stock`, `fileUrl` | (200) json( json(_id, name, description, fileUrl, price, stock, createdAt, updatedAt, __v) )| (500) internal server error, (403) unauthorized | Create product |
+| `/:id` | PATCH | `token` | `name`, `description`, `price`, `stock`, `fileUrl` | (200) json(n,nModified,ok) )| (500) internal server error, (403) unauthorized | Update product |
+| `/:id` | DELETE | `token` | `none` | (200) json(ok,deletedCount,n)| (500) internal server error, (403) unauthorized | Delete a product |
 
 ## List of Tag routes:
 base url : http//localhost:3000/carts
@@ -60,10 +60,10 @@ example :
 
 | Route | HTTP | Headers(s) | Body | Sucess Response | Error Response | Description |
 | ----- | ---- | ---------- | ---- | ----------------| -------------- | ---|
-| `/myCarts` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error | Find all tags based on user id and status:ordered |
-| `/orderStatus` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error | Find all carts based on user id and status:delivered |
-| `/allOrder` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error | Find all carts available |
-| `/received/:id` | POST | `token` | `none` | (200) json(n,nModified,ok) | (500) internal server error | Update cart status from `purchased` to `delivered` |
-| `/create/:id` | POST | `token` | `none` | (200) json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v) | (500) internal server error | Add item to cart |
+| `/myCarts` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error, (403) unauthorized | Find all tags based on user id and status:ordered |
+| `/orderStatus` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error, (403) unauthorized | Find all carts based on user id and status:delivered |
+| `/allOrder` | GET | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error, (403) unauthorized | Find all carts available |
+| `/received/:id` | POST | `token` | `none` | (200) json(n,nModified,ok) | (500) internal server error, (403) unauthorized | Update cart status from `purchased` to `delivered` |
+| `/create/:id` | POST | `token` | `none` | (200) json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v) | (500) internal server error, (403) unauthorized | Add item to cart |
 | `/:id` | DELETE | `token` | `none` | (200) json(ok,deletedCount,n) | (500) internal server error | Delete a cart |
-| `/checkout` | POST | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error | Update cart status from `ordered` to `purchased` |
+| `/checkout` | POST | `token` | `none` | (200) [ json(_id, status, UserId, product, quantity, createdAt, updatedAt, __v)] | (500) internal server error, (403) unauthorized | Update cart status from `ordered` to `purchased` |
