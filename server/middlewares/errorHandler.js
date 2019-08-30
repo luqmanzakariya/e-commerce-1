@@ -1,6 +1,7 @@
 module.exports = function (err, req, res, next){
   console.log('masuk error handling')
-  // console.log(err)
+   console.log(err, "errrooor")
+   console.log(JSON.stringify(err, null, 2))
 
   if (err.name === "ValidationError"){
     let status = 400
@@ -16,6 +17,7 @@ module.exports = function (err, req, res, next){
   }
   else {
     let status = err.status || err.code || 500
+    console.log(status)
     let message = err.message || 'internal server error'
     res.status(status).json({message: message})
   }
