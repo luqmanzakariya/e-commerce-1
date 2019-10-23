@@ -17,12 +17,12 @@
       <b-carousel-slide
         caption="Gadget Candy"
         text="Experience buying a gadget like a candy"
-        img-src="https://storage.googleapis.com/gadgetcandy-image/1566678548176carousel-1.jpg"
+        img-src="https://storage.cloud.google.com/gadgetcandy-image/carousel1.jpg"
       ></b-carousel-slide>
 
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://storage.googleapis.com/gadgetcandy-image/1566678623655carousel-2.png"></b-carousel-slide>
+      <b-carousel-slide img-src="https://storage.cloud.google.com/gadgetcandy-image/carousel2.jpeg"></b-carousel-slide>
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
@@ -31,7 +31,7 @@
           class="d-block img-fluid w-100"
           width="1024"
           height="480"
-          src="https://storage.googleapis.com/gadgetcandy-image/1566678690250background.jpeg"
+          src="https://storage.cloud.google.com/gadgetcandy-image/carousel3.png"
           alt="image slot"
         >
       </b-carousel-slide>

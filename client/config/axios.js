@@ -4,7 +4,7 @@ import axios from 'axios'
 // baseURL: 'http://localhost:3000'
 
 const ax = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'http://34.87.11.117'
 })
 
 export default ax
